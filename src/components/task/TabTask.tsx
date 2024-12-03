@@ -1,3 +1,6 @@
+import { TypeProps } from "../../model/TaskModel"
+type onClickType = "ALL" | TypeProps
+
 interface TabTaskProps {
     onClick: (type: onClickType) => void
     value: string
