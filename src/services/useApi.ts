@@ -1,6 +1,6 @@
 import axios from "axios";
 const host = "http://192.168.60.44";
-const port = "4002";
+const port = "5000";
 
 const baseURL = `${host}:${port}`;
 
@@ -10,7 +10,6 @@ const api = axios.create({
 interface CreateTaskProps {
     summary: string;
     description: string;
-    reporter: string;
     type: string;
     status?: string;
     assignee?: string;
