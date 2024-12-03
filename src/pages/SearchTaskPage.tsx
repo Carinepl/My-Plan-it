@@ -2,30 +2,38 @@ import React, { useState } from "react"
 import { Button } from "../components/common/Button"
 import { Input } from "../components/common/Input"
 import { MainTitle } from "../components/common/MainTitle"
-import { TaskProps } from "../model/TaskModel"
-import { INITIAL_TASKS } from "../mock/initialTaks"
 import { Task } from "../components/task/Task"
+import { INITIAL_TASKS } from "../mock/initialTasks"
+import { TaskModel, TaskProps } from "../model/TaskModel"
 
 
 export const SearchTaskPage: React.FC = () => {
+
+    const [initialTasks, setInitialTasks] = useState(INITIAL_TASKS)
+
     const [searchTerm, setSearchTerm] = useState<string>('')
-    const [searchResults, setSearchResults] = useState<TaskProps[]>([])
+    const [searchResults, setSearchResults] = useState<TaskProps[]>([]);
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value)
     }
-    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const mockResults: TaskProps[] = [
-            INITIAL_TASKS[0],
-            INITIAL_TASKS[1],
-            INITIAL_TASKS[2],
-            INITIAL_TASKS[3],
-            INITIAL_TASKS[4],
 
-        ]
-        setSearchResults(mockResults)
-    }
+    
+    
+    // const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault()
+    //     const mockResults: Array<TaskProps> = [
+    //         INITIAL_TASKS[0],
+    //         INITIAL_TASKS[1],
+    //         INITIAL_TASKS[2],
+    //         INITIAL_TASKS[3],
+    //         INITIAL_TASKS[4],
+
+    //     ];
+
+    //     setSearchResults(mockResults)
+    // }
+    
     return (
         <div className="space-y-6">
             <MainTitle title="Search Task" />
@@ -41,7 +49,7 @@ export const SearchTaskPage: React.FC = () => {
                 </div>
             </form>
             <div className="space-y-4">
-                {searchResults.map((task) => (
+                {searchResults.map((task:TaskProps) => (
                     <Task key={task.id} task={task} />
                 ))}
                 {
