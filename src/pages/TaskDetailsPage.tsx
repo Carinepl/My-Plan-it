@@ -5,9 +5,9 @@ import { Input } from "../components/common/Input"
 import { Label } from "../components/common/Label"
 import { MainTitle } from "../components/common/MainTitle"
 import { useTaskContext } from "../context/useTaskContext"
-import { INITIAL_TASKS } from "../mock/initialTaks"
-import { TaskModel, TaskStatus, TypeProps } from "../model/TaskModel"
+import { TaskStatus, TypeProps } from "../model/TaskModel"
 import { useApi } from "../services/useApi"
+import { INITIAL_TASKS } from "../mock/initialTasks"
 
 type TaskFormProps = {
     summary: string
