@@ -4,6 +4,7 @@ export enum TypeProps {
     EPIC = "EPIC",
     SUB_TASK = "SUB_TASK",
 }
+
 export enum TaskStatus {
     OPEN = "OPEN",
     IN_PROGRESS = "IN_PROGRESS",
