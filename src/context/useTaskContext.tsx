@@ -6,7 +6,6 @@ import { useApi } from '../services/useApi';
 interface TaskContextType {
     tasks: TaskModel[];
     addTask: (task: TaskProps) => void;
-   
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -14,16 +13,18 @@ const TaskContext = createContext<TaskContextType | undefined>(undefined);
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
     const [tasks, setTasks] = useState<TaskModel[]>([]);
     const api = useApi();
-    
+
 
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await api.getAllTasks();
-                console.log(response);
-                if(response.status === 200){
-                    console.log(response.data);
-                    setTasks(response.data.map((task: TaskProps) => TaskModel.build(task)));
+                const result = await api.getAllTasks();
+                if (result.status === 200) {
+                    const tasksList = result.data
+                    const tasks = tasksList.map((task: TaskProps) => {
+                        return TaskModel.build(task)
+                    })
+                    setTasks(tasks)
                 }
             } catch (error) {
                 console.log(error);
@@ -34,7 +35,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <TaskContext.Provider value={{ tasks, addTask:()=>{}}}>
+        <TaskContext.Provider value={{ tasks, addTask: () => { } }}>
             {children}
         </TaskContext.Provider>
     );
