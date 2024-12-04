@@ -66,23 +66,22 @@ export const TaskDetailsPage: React.FC = () => {
     const handleSumit = async (e: React.FormEvent) => {
         e.preventDefault()
         console.log('FormTask', taskForm)
-        try{
-            const response  = await api.editTask(task.getId(), taskForm)
-            console.log(response)
-            if(response.status === 200){
+        try {
+            const response = await api.editTask(task.getId(), taskForm)
+            if (response.status === 200) {
                 task.setSummary(taskForm.summary)
                 task.setDescription(taskForm.description)
                 task.setType(taskForm.type)
                 task.setReporter(taskForm.reporter)
                 task.setAssignee(taskForm.assignee)
-                task.setStatus(taskForm.status) 
+                task.setStatus(taskForm.status)
             }
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
-        
+
         setIsEditing(false)
-        
+
     }
 
     return (
