@@ -33,14 +33,14 @@ export const CreateTaskPage: React.FC = () => {
             [name]: value
         }))
     }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('FormData', formData)
         try {
             const response = await api.createTask(formData)
             if (response.status === 201) {
                 navigate('/tasks')
-            }else{
+            } else {
                 window.alert('Error to create task')
             }
         } catch (error) {
