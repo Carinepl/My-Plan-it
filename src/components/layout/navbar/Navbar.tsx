@@ -12,8 +12,13 @@ export const Navbar: React.FC = () => {
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center py-4">
                     <Link to="/" className="text-2xl font-bold text-blue-600">PlanIt</Link>
-                    <div className="hidden md:flex space-x-4">
-
+                    <div
+                        className={`
+                            space-x-4
+                            xs:hidden
+                            lg:flex 
+                    `}
+                    >
                         <NavLink
                             to="/"
                             icon={<IconHome size={18} />}
@@ -51,7 +56,7 @@ export const Navbar: React.FC = () => {
                             className="md:hidden py-4"
                         >
                             <div
-                                className="flex flex-col space-y-2"
+                                className="space-y-2"
                             >
                                 <NavLink
                                     to="/"
