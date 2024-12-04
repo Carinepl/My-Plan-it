@@ -29,7 +29,7 @@ export const SearchTaskPage: React.FC = () => {
     //         INITIAL_TASKS[3],
     //         INITIAL_TASKS[4],
 
-    //     ];
+    //     ]; 
 
     //     setSearchResults(mockResults)
     // }
@@ -37,7 +37,7 @@ export const SearchTaskPage: React.FC = () => {
     return (
         <div className="space-y-6">
             <MainTitle title="Search Task" />
-            <form className="space-y-4" onSubmit={handleSearch}>
+            <form className="space-y-4" >
                 <div className="flex gap-3 items-center">
                     <Input
                         placeholder="Search task"
@@ -48,7 +48,7 @@ export const SearchTaskPage: React.FC = () => {
                     <Button variant="primary" type="submit">Search</Button>
                 </div>
             </form>
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
                 {searchResults.map((task:TaskProps) => (
                     <Task key={task.id} task={task} />
                 ))}
@@ -58,7 +58,7 @@ export const SearchTaskPage: React.FC = () => {
                     )
                 }
               
-            </div>
+            </div> */}
         </div>
     )
 }
