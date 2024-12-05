@@ -6,6 +6,7 @@ import { useApi } from '../services/useApi';
 interface TaskContextType {
     tasks: TaskModel[];
     addTask: (task: TaskProps) => void;
+    removeTask: (taskId: String) => void;
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -35,7 +36,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <TaskContext.Provider value={{ tasks, addTask: () => { } }}>
+        <TaskContext.Provider value={{ tasks, addTask: () => {}, removeTask: () => {} }}>
             {children}
         </TaskContext.Provider>
     );
