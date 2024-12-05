@@ -1,4 +1,5 @@
 import axios from "axios";
+import { data } from "react-router-dom";
 const host = "http://192.168.60.90";
 const port = 5000;
 
@@ -29,6 +30,9 @@ export const useApi = () => {
         },
         editTask: async (taskId: string, data: CreateTaskProps) => {
             return await api.put(`/v1/tasks/${taskId}`, data);
+        },
+        deleteTask: async(taskId: string) => {
+            return await api.delete(`/v1/tasks/${taskId}`);
         }
     }
 }
