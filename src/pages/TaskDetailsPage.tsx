@@ -7,7 +7,7 @@ import { MainTitle } from "../components/common/MainTitle"
 import { useTaskContext } from "../context/useTaskContext"
 import { TaskStatus, TypeProps } from "../model/TaskModel"
 import { useApi } from "../services/useApi"
-import { INITIAL_TASKS } from "../mock/initialTasks"
+
 
 type TaskFormProps = {
     summary: string
@@ -23,6 +23,7 @@ export const TaskDetailsPage: React.FC = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const navigate = useNavigate()
     const { tasks } = useTaskContext()
+   
 
     const task = tasks.find((task) => task?.getId() === id)
 
@@ -57,10 +58,17 @@ export const TaskDetailsPage: React.FC = () => {
         setIsEditing(false)
     }
 
-    const handleDelete = () => {
-        const taskIndex = INITIAL_TASKS.findIndex((task) => task?.id === id)
-        INITIAL_TASKS.splice(taskIndex, 1)
-        navigate('/tasks')
+    const handleDelete = async() => {
+
+      
+        const response = await api.deleteTask(task.getId())
+        if(response.status === 200 || response.status === 204){
+           
+            const remove = tasks.findIndex((task) => task.getId() === id)
+            tasks.splice(remove, 1);
+            navigate('/tasks');
+        }''
+        
     }
 
     const handleSumit = async (e: React.FormEvent) => {
