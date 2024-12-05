@@ -1,43 +1,37 @@
-import React, { useState } from "react"
-import { Button } from "../components/common/Button"
-import { Input } from "../components/common/Input"
-import { MainTitle } from "../components/common/MainTitle"
-import { Task } from "../components/task/Task"
-import { INITIAL_TASKS } from "../mock/initialTasks"
-import { TaskModel, TaskProps } from "../model/TaskModel"
-
+import React, { useState } from "react";
+import { Button } from "../components/common/Button";
+import { Input } from "../components/common/Input";
+import { MainTitle } from "../components/common/MainTitle";
+import { Task } from "../components/task/Task";
+import { TaskModel } from "../model/TaskModel";
+import { useTaskContext } from "../context/useTaskContext";
 
 export const SearchTaskPage: React.FC = () => {
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [searchResults, setSearchResults] = useState<TaskModel[]>([]);
 
-    const [initialTasks, setInitialTasks] = useState(INITIAL_TASKS)
-
-    const [searchTerm, setSearchTerm] = useState<string>('')
-    const [searchResults, setSearchResults] = useState<TaskProps[]>([]);
+    const taskContext = useTaskContext();
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value)
-    }
+        setSearchTerm(e.target.value);
+    };
 
-    
-    
-    // const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault()
-    //     const mockResults: Array<TaskProps> = [
-    //         INITIAL_TASKS[0],
-    //         INITIAL_TASKS[1],
-    //         INITIAL_TASKS[2],
-    //         INITIAL_TASKS[3],
-    //         INITIAL_TASKS[4],
+    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-    //     ]; 
+      
+        const filterTasks = taskContext.tasks.filter((task: TaskModel) =>
+            task.getSummary().includes(searchTerm)
+        );
 
-    //     setSearchResults(mockResults)
-    // }
-    
+       
+        setSearchResults(filterTasks);
+    };
+
     return (
         <div className="space-y-6">
             <MainTitle title="Search Task" />
-            <form className="space-y-4" >
+            <form className="space-y-4" onSubmit={handleSearch}>
                 <div className="flex gap-3 items-center">
                     <Input
                         placeholder="Search task"
@@ -45,20 +39,22 @@ export const SearchTaskPage: React.FC = () => {
                         onChange={handleSearchChange}
                         value={searchTerm}
                     />
-                    <Button variant="primary" type="submit">Search</Button>
+                    <Button variant="primary" type="submit">
+                        Search
+                    </Button>
                 </div>
             </form>
-            {/* <div className="space-y-4">
-                {searchResults.map((task:TaskProps) => (
-                    <Task key={task.id} task={task} />
-                ))}
-                {
-                    searchResults.length === 0 && (
-                        <p>No results found</p>
-                    )
-                }
-              
-            </div> */}
+
+           
+            <div className="space-y-3">
+                {searchResults.length > 0 ? (
+                    searchResults.map((task) => (
+                        <Task key={task.getId()} task={task} />
+                    ))
+                ) : (
+                    <p>No tasks found</p>
+                )}
+            </div>
         </div>
-    )
-}
+    );
+};
