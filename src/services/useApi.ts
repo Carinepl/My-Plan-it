@@ -1,11 +1,10 @@
 import axios from "axios";
-import { data } from "react-router-dom";
 const host = "http://192.168.60.90";
 const port = 5000;
 
 const baseURL = `${host}:${port}`;
 
-console.log('BASE URL DA CARINE ', baseURL)
+
 
 const api = axios.create({
     baseURL,
