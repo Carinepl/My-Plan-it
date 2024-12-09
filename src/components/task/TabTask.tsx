@@ -1,4 +1,4 @@
-import { TypeProps } from "../../model/TaskModel"
+import { TypeProps } from "../../model/TaskModel";
 type onClickType = "ALL" | TypeProps
 
 interface TabTaskProps {
@@ -6,35 +6,34 @@ interface TabTaskProps {
     value: string
 }
 
+
 export const TabTask: React.FC<TabTaskProps> = ({ onClick, value }) => {
+
+    const buttonOptions = [
+        { type: "ALL", label: "All" },
+        { type: TypeProps.EPIC, label: "Epic" },
+        { type: TypeProps.TASK, label: "Task" },
+        { type: TypeProps.SUB_TASK, label: "Subtask" },
+        { type: TypeProps.BUG, label: "Bug" },
+    ];
+
+    const buttonStyles = (active: boolean) =>
+        `px-4 py-2 rounded transition ${active
+            ? "bg-purple-600 text-white shadow-md"
+            : "bg-white text-gray-800 hover:bg-purple-100"
+        }`;
+
     return (
         <div className="flex space-x-4">
-            <button className={`px-4 py-2 rounded ${value === "ALL" ? "bg-blue-600 text-white" : "bg-white"}`}
-                onClick={() => onClick("ALL")}
-            >
-                All
-            </button>
-
-            <button className={`px-4 py-2 rounded ${value === TypeProps.EPIC ? "bg-blue-600 text-white" : "bg-white"}`}
-                onClick={() => onClick(TypeProps.EPIC)}
-            >
-                Epic
-            </button>
-            <button className={`px-4 py-2 rounded ${value === TypeProps.TASK ? "bg-blue-600 text-white" : "bg-white"}`}
-                onClick={() => onClick(TypeProps.TASK)}
-            >
-                Task
-            </button>
-            <button className={`px-4 py-2 rounded ${value === TypeProps.SUB_TASK ? "bg-blue-600 text-white" : "bg-white"}`}
-                onClick={() => onClick(TypeProps.SUB_TASK)}
-            >
-                Subtask
-            </button>
-            <button className={`px-4 py-2 rounded ${value === TypeProps.BUG ? "bg-blue-600 text-white" : "bg-white"}`}
-                onClick={() => onClick(TypeProps.BUG)}
-            >
-                Bug
-            </button>
+            {buttonOptions.map((button, i) => (
+                <button
+                    key={`k${i}`}
+                    className={buttonStyles(value === button.type)}
+                    onClick={() => onClick(button.type as onClickType)}
+                >
+                    {button.label}
+                </button>
+            ))}
         </div>
-    )
-}
+    );
+};
