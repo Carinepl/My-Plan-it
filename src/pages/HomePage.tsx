@@ -12,7 +12,7 @@ export const HomePage: React.FC = () => {
     return (
         <div className="space-y-6">
             <MainTitle title="Welcome to PlanIt" />
-            <p className="text-xl">Your personal task management system</p>
+            <p className="text-xl text-gray-700">Your personal task management system</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <StartCard title="Total Tasks" value={tasks.length} />
                 <StartCard title="Completed Tasks" value={completedTasks.length} />
@@ -36,9 +36,9 @@ interface StartCardProps {
 }
 const StartCard: React.FC<StartCardProps> = ({ title, value }) => {
     return (
-        <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-lg font-semi-bold">{title}</h2>
-            <p className="text-3xl font-bold text-blue-600">{value}</p>
+        <div className="bg-gray-100 p-6 rounded shadow">
+            <h2 className="text-lg font-semi-bold text-gray-500">{title}</h2>
+            <p className="text-3xl font-bold text-black">{value}</p>
         </div>
     )
 }
