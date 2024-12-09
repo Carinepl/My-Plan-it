@@ -23,7 +23,7 @@ export const TaskDetailsPage: React.FC = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const navigate = useNavigate()
     const { tasks } = useTaskContext()
-   
+
 
     const task = tasks.find((task) => task?.getId() === id)
 
@@ -58,17 +58,17 @@ export const TaskDetailsPage: React.FC = () => {
         setIsEditing(false)
     }
 
-    const handleDelete = async() => {
+    const handleDelete = async () => {
 
-      
+
         const response = await api.deleteTask(task.getId())
-        if(response.status === 200 || response.status === 204){
-           
+        if (response.status === 200 || response.status === 204) {
+
             const remove = tasks.findIndex((task) => task.getId() === id)
             tasks.splice(remove, 1);
             navigate('/tasks');
-        }''
-        
+        } ''
+
     }
 
     const handleSumit = async (e: React.FormEvent) => {
@@ -85,7 +85,7 @@ export const TaskDetailsPage: React.FC = () => {
                 task.setStatus(taskForm.status)
             }
         } catch (error) {
-            console.log(error)
+       
         }
 
         setIsEditing(false)
@@ -240,15 +240,18 @@ export const TaskDetailsPage: React.FC = () => {
                         >
                             Edit
                         </button>
-                        <Button
-                            onClick={handleDelete}
-                            variant="danger"
-                        >
-                            Delete
-                        </Button>
+                        {
+                            task?.getStatus() === TaskStatus.DONE ?
+                                null :
+                                <Button
+                                    onClick={handleDelete}
+                                    variant="danger"
+                                >
+                                    Delete
+                                </Button>
+                        }
                     </div>
                 </div>}
-
             </div>
         </div>
     )
