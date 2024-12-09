@@ -1,12 +1,12 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { TaskModel, TaskProps } from '../model/TaskModel';
 import { useApi } from '../services/useApi';
 
 
 interface TaskContextType {
     tasks: TaskModel[];
-    addTask: (task: TaskProps) => void;
-    removeTask: (taskId: String) => void;
+    addTask: (task: TaskModel) => void;
+
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -15,28 +15,32 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     const [tasks, setTasks] = useState<TaskModel[]>([]);
     const api = useApi();
 
+    function addTask(task: TaskModel) {
+        setTasks((prevState) =>  [
+            ...prevState,
+            task
+        ] )
+    }
+
+
+    const fetchTasks = useCallback(async () => {
+        try {
+            const response = await api.getAllTasks();
+            if (response.status === 200) {
+                setTasks(response.data.map((task: TaskProps) => TaskModel.build(task)));
+            }
+        } catch (error) {
+           
+        }
+    }, [])
 
     useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-                const result = await api.getAllTasks();
-                if (result.status === 200) {
-                    const tasksList = result.data
-                    const tasks = tasksList.map((task: TaskProps) => {
-                        return TaskModel.build(task)
-                    })
-                    setTasks(tasks)
-                }
-            } catch (error) {
-                console.log(error);
-            }
-
-        }
         fetchTasks();
-    }, []);
+    }, [tasks]);
+    
 
     return (
-        <TaskContext.Provider value={{ tasks, addTask: () => {}, removeTask: () => {} }}>
+        <TaskContext.Provider value={{ tasks, addTask }}>
             {children}
         </TaskContext.Provider>
     );
