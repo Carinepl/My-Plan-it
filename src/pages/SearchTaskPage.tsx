@@ -16,17 +16,20 @@ export const SearchTaskPage: React.FC = () => {
         setSearchTerm(e.target.value);
     };
 
+
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-      
+
         const filterTasks = taskContext.tasks.filter((task: TaskModel) =>
-            task.getSummary().includes(searchTerm)
+            task.getSummary().toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-       
+
         setSearchResults(filterTasks);
     };
+
+
 
     return (
         <div className="space-y-6">
@@ -45,7 +48,7 @@ export const SearchTaskPage: React.FC = () => {
                 </div>
             </form>
 
-           
+
             <div className="space-y-3">
                 {searchResults.length > 0 ? (
                     searchResults.map((task) => (
