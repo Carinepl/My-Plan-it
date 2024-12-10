@@ -85,7 +85,7 @@ export const TaskDetailsPage: React.FC = () => {
                 task.setStatus(taskForm.status)
             }
         } catch (error) {
-       
+
         }
 
         setIsEditing(false)
@@ -234,23 +234,23 @@ export const TaskDetailsPage: React.FC = () => {
                         </span>
                     </p>
                     <div className="flex justify-end space-x-2">
-                        <button
-                            onClick={handleEdit}
-                            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                        >
-                            Edit
-                        </button>
-                        {
-                            task?.getStatus() === TaskStatus.DONE ?
-                                null :
-                                <Button
-                                    onClick={handleDelete}
-                                    variant="danger"
-                                >
-                                    Delete
-                                </Button>
-                        }
-                    </div>
+    {task?.getStatus() !== TaskStatus.DONE && (
+        <>
+            <button
+                onClick={handleEdit}
+                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+                Edit
+            </button>
+            <Button
+                onClick={handleDelete}
+                variant="danger"
+            >
+                Delete
+            </Button>
+        </>
+    )}
+</div>
                 </div>}
             </div>
         </div>
