@@ -13,7 +13,7 @@ export const HomePage: React.FC = () => {
         <div className="space-y-6">
             <MainTitle title="Welcome to PlanIt" />
             <p className="text-xl text-gray-700">Your personal task management system</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 shadow-md rounded">
                 <StartCard title="Total Tasks" value={tasks.length} />
                 <StartCard title="Completed Tasks" value={completedTasks.length} />
             </div>
@@ -21,7 +21,7 @@ export const HomePage: React.FC = () => {
             <div className="mt-6">
                 <Link to="/create">
                     <Button variant="primary">
-                        Create New Task
+                        Create Task
                     </Button>
                 </Link>
             </div>
