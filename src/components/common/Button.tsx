@@ -11,7 +11,7 @@ export const Button: React.FC<ButtonProps> = ({ variant, ...rest }) => {
         py-2
         border
         rounded-md
-        shadow-sm
+        shadow-md
         tesxt-sm
         font-medium
         focus:outline-none
