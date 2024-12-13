@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { NavLink } from "./NavLink"
-import { IconHomeFilled, IconChecklist, IconFilePlus, IconSearch, IconX, IconMenu2, IconClipboardHeart
+import {
+    IconHomeFilled, IconChecklist, IconFilePlus, IconSearch, IconX, IconMenu2, 
+    IconPlanet
 } from "@tabler/icons-react"
 import { useState } from "react"
 
@@ -13,17 +15,19 @@ export const Navbar: React.FC = () => {
         { to: "/", icon: <IconHomeFilled size={18} />, text: "Home" },
         { to: "/tasks", icon: <IconChecklist size={18} />, text: "Tasks" },
         { to: "/create", icon: <IconFilePlus size={18} />, text: "Create Tasks" },
-        { to: "/search", icon: <IconSearch size={18} />, text: "Search" }
+        { to: "/search", icon: <IconSearch size={18} />, text: "Search" },
+        
     ]
 
     return (
-        <nav className="bg-white shadow-md">
+        <nav className="bg-gradient-to-r from-blue-800  to-blue-50 shadow-md">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center py-4">
-                    <Link to="/" className="text-2xl font-bold text-purple-900 flex items-center">
+                    <Link to="/" className="text-2xl font-bold text-white flex items-center">
+                    
                         PlanIt
-                        <IconClipboardHeart
-                            className="ml-3 text-gray-500" />
+                        <IconPlanet
+                            className="ml-2 text-white" />
                     </Link>
                     <div
                         className={`
@@ -39,7 +43,8 @@ export const Navbar: React.FC = () => {
                                         key={`key-${i}`}
                                         to={link.to}
                                         icon={link.icon}
-                                        text={link.text} />
+                                        text={link.text} 
+                                        />
                                 )
                             })
                         }
