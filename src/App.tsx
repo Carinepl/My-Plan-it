@@ -13,10 +13,11 @@ export function App() {
       <Routes>
       <Route path="/" element={<Page/>}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/tasks" element={<TaskListPage />} />
+        <Route path="/tasks" element={<TaskListPage variant='allTasks' />} />
         <Route path="/tasks/:id" element={<TaskDetailsPage />} />
         <Route path="/create" element={<CreateTaskPage />} />
         <Route path='/search' element={<SearchTaskPage />} />
+        <Route path='/completed-tasks' element={<TaskListPage variant='completedTasks' />} />
       </Route>
       </Routes>
     </Router>
