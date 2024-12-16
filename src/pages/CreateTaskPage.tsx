@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { MainTitle } from "../components/common/MainTitle"
 import { Label } from "../components/common/Label"
@@ -14,6 +14,7 @@ interface TaskFormDataProps {
     reporter: string
     assignee?: string
 }
+
 export const CreateTaskPage: React.FC = () => {
     const navigate = useNavigate()
     const [formData, setFormData] = useState<TaskFormDataProps>({
@@ -21,38 +22,9 @@ export const CreateTaskPage: React.FC = () => {
         description: '',
         type: TypeProps.TASK,
         reporter: 'Alan Maxwell',
-        assignee: ''
+        assignee: '',
     })
     const api = useApi()
-
-
-    const useReporters = [
-        "Alan Maxwell",
-        "Lucas Granjense",
-        "Wesley Ximenes",
-        "Carine Lima",
-        "Flavio Montoril",
-        "Maria Rita",
-        "Mathues Monteiro"
-    ];
-
-    const useAssignee = [
-        {value:"Alan Maxwell"},
-        {value:"Lucas Granjense"},
-        {value:"Wesley Ximenes"},
-        {value:"Carine Lima"},
-        {value:"Flavio Montoril"},
-        {value:"Maria Rita"},
-        {value:"Mathues Monteiro"}
-    ];
-
-    const typesTasks = [
-        { value: "TASK" },
-        { value: "BUG" },
-        { value: "EPIC" },
-        { value: "SUB_TASK" }
-    ]
-
 
 
 
@@ -120,44 +92,9 @@ export const CreateTaskPage: React.FC = () => {
                     />
                 </div>
 
-                <div>
-                    <Label text="Type" htmlFor="type" />
-                    <select id="type"
-                        name="type"
-                        className="...">
-                            {/* MEU CÓDIGO */}
-                        {typesTasks.map(type => (
-                            <option key={type.value} value={type.value}>
-                                {type.value}
-                            </option>
-                        ))}
+                <SelectsForm formData={formData} onChange={handleInputTaskChange} />
 
-
-                    </select>
-                </div>
-
-
-                <div>
-                    <Label text="Reporter" htmlFor="reporter" />
-                    {/* MEU CÓDIGO */}
-                    <select id="reporter" name="reporter" className="...">
-                        {useReporters.map(reporter => (
-                            <option key={reporter} value={reporter}>{reporter}</option>
-                        ))}
-                    </select>
-
-                </div>
-
-                <div>
-                    <Label text="Assignee" htmlFor="assignee" />
-                    {/* MEU CÓDIGO */}
-                    <select id="assignee" name="assignee" className="...">
-                        {useAssignee.map(assignee => (
-                            <option key={assignee.value} value={assignee.value}>{assignee.value}</option>
-                        ))}
-                    </select>
-
-                </div>
+            
 
                 <div className="flex justify-end">
                     <button className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700
@@ -169,4 +106,57 @@ export const CreateTaskPage: React.FC = () => {
             </form>
         </div>
     )
+}
+
+
+interface SelectsFormProps {
+    onChange: (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>)=>void
+    formData: TaskFormDataProps
+}
+
+
+const SelectsForm = ({ onChange, formData }: SelectsFormProps) => {
+
+    const users = [
+        { label: "Alan Maxwell", value: "Alan Maxwell" },
+        { label: "Wesley Ximenes", value: "Wesley Ximenes" },
+        { label: "Carine Lima", value: "Carine Lima" },
+        { label: "Maria Rita", value: "Maria Rita" },
+        { label: "Matheus Monteiro", value: "Mathues Monteiro" },
+        { label: "Lucas Granjense", value: "Lucas Granjense" },
+        { label: "Flávio Montoril", value: "Flavio Montoril" }
+    ]
+
+    const typesTasks = [
+        { label: "TASK", value: "TASK" },
+        { label: "BUG", value: "BUG" },
+        { label: "EPIC", value: "EPIC" },
+        { label: "SUB_TASK", value: "SUB_TASK" }
+    ]
+
+    const selects = [
+        { text: "Type", id: "type", value: formData.type, onChange, options: typesTasks },
+        { text: "Reporter", id: "reporter", value: formData.reporter, onChange, options: users },
+        { text: "Assignee", id: "assignee", value: formData.assignee, onChange, options: users },
+    ]
+
+    return (
+        <Fragment>
+            {selects.map((select) => {
+                return (
+                    <div>
+                        <Label text={select.text} htmlFor={select.id} />
+                        <select id={select.id} name={select.id} className="..." value={select.value} onChange={select.onChange} >
+                            {select.options.map((option) => {
+                                return (
+                                    <option value={option.value} >{option.label}</option>
+                                )
+                            })}
+                        </select>
+                    </div>
+                )
+            })}
+        </Fragment>
+    )
+
 }
