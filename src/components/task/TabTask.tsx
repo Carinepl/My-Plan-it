@@ -1,4 +1,5 @@
 import { TypeProps } from "../../model/TaskModel";
+import { buttonOptions } from "../../constants/buttonOptions";
 type onClickType = "ALL" | TypeProps
 
 interface TabTaskProps {
@@ -9,14 +10,7 @@ interface TabTaskProps {
 
 export const TabTask: React.FC<TabTaskProps> = ({ onClick, value }) => {
 
-    // TODO: CRIAR PASTA DE CONSTANTES QUE EXPORTAM BUTTONOPTIONS
-    const buttonOptions = [
-        { type: "ALL", label: "All" },
-        { type: TypeProps.EPIC, label: "Epic" },
-        { type: TypeProps.TASK, label: "Task" },
-        { type: TypeProps.SUB_TASK, label: "Subtask" },
-        { type: TypeProps.BUG, label: "Bug" },
-    ];
+
 
     const buttonStyles = (active: boolean) =>
         `px-4 py-2 rounded transition ${active
